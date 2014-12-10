@@ -21,9 +21,19 @@ class Blog_Entry_Table {
 			trigger_error($msg);
 		}
 	}
+
+	public function getAllEntries(){
+		$sql = "SELECT entry_id, title, SUBSTRING(entry_text, 1, 50) AS intro FROM blog_entry";
+		$statement = $this->db->prepare($sql);
+		try{
+			$statement->execute();
+		}catch(Exception $e){
+			$executionMessage = "<p>You tried to run this sql: $sql</p>
+								<p>Exeption: $e</p>";
+			trigger_error($executionMessage);
+		}	
+	return $statement;
+	}
 }
 
-
-
 ?>
-
