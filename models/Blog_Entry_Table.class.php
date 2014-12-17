@@ -9,6 +9,7 @@ class Blog_Entry_Table {
 
 	public function saveEntry ($title, $entry){
 		$entrySQL = "INSERT INTO blog_entry (title, entry_text) VALUES (?, ?)";
+		//$entryStatement = $this->db->prepare($entrySQL);
 		$formData = array($title, $entry);
 		$entryStatement = $this->makeStatement( $entrySQL, $formData );
 		// try{
@@ -20,7 +21,7 @@ class Blog_Entry_Table {
 	}
 
 	public function getAllEntries(){
-		$sql = "SELECT entry_id, title, SUBSTRING(entry_text, 1, 50) AS intro FROM blog_entry";
+		$sql = "SELECT entry_id, title, SUBSTRING(entry_text, 1, 150) AS intro FROM blog_entry";
 		$statement = $this->makeStatement($sql);
 		// try{
 		// 	$statement->execute();
