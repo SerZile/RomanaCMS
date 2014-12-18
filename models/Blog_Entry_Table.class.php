@@ -57,6 +57,15 @@ class Blog_Entry_Table {
 		}
 		return $statement;
 	}
+
+public function deleteEntry ($id){
+		$sql = "DELETE FROM blog_entry WHERE entry_id = ?";
+		$data = array($id);
+		$statement = $this->makeStatement($sql, $data);
+	}
+
+
+
 }
 
 ?>

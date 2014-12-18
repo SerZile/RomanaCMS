@@ -5,15 +5,20 @@ $entryTable = new Blog_Entry_Table($db);
 
 $editorSubmitted = isset($_POST['action']);
 if($editorSubmitted){
-	$buttonClicked = $_POST['action'];
-
+	$buttonClicked = $_POST['action'];	
 	$insertNewEntry = ($buttonClicked === 'save');
-
+	$deleteEntry = ($buttonClicked === 'delete');
+	$id = $_POST['id'];
+	
 	if($insertNewEntry){
+
 		$title = $_POST['title'];
 		$entry = $_POST['entry'];
 
 		$entryTable->saveEntry($title, $entry);
+
+	}elseif($deleteEntry){
+		$entryTable->deleteEntry($id);
 	}
 }
 
@@ -27,5 +32,7 @@ if($entryRequested){
 
 $editorOutput = include_once "views/admin/editor-html.php";
 return $editorOutput;
+
+
 
 ?>
