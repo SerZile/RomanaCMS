@@ -5,18 +5,20 @@ $entryTable = new Blog_Entry_Table($db);
 
 $editorSubmitted = isset($_POST['action']);
 if($editorSubmitted){
-	$buttonClicked = $_POST['action'];	
-	$insertNewEntry = ($buttonClicked === 'save');
-	$deleteEntry = ($buttonClicked === 'delete');
+	$buttonClicked = $_POST['action'];
+
+	$save = ($buttonClicked === 'save');
 	$id = $_POST['id'];
-	
+	$insertNewEntry = ($save and $id === '0');
+	$deleteEntry = ($buttonClicked === 'delete');
+	$updateEntry = ($save and $insertNewEntry === false);
+	$title = $_POST['title'];
+	$entry = $_POST['entry'];
+
 	if($insertNewEntry){
-
-		$title = $_POST['title'];
-		$entry = $_POST['entry'];
-
+		$entryTable->saveEntry($title, $entry);	
+	}elseif($updateEntry){
 		$entryTable->saveEntry($title, $entry);
-
 	}elseif($deleteEntry){
 		$entryTable->deleteEntry($id);
 	}
